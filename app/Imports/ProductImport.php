@@ -12,6 +12,12 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
 class ProductImport implements ToCollection, WithHeadingRow,WithChunkReading, ShouldQueue
 {
+    protected $user_id;
+
+    public function __construct($user_id) {
+        $this->user_id = $user_id;
+    }
+
     /**
     * @param Collection $collection
     */
@@ -21,6 +27,7 @@ class ProductImport implements ToCollection, WithHeadingRow,WithChunkReading, Sh
         {
             try {
                 Product::create([
+                    'user_id'  => $this->user_id,
                     'name'  => $row['name'],
                     'price' => (double)$row['price'],
                     'sku' => $row['sku'],

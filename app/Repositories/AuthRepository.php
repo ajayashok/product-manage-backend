@@ -24,13 +24,12 @@ class AuthRepository implements AuthRepoInterface {
         if (Auth::attempt($data)) {
             $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
-
             $response = [
                 'token' => $token,
                 'user' => $user,
             ];
         }
-        return $response;
+        return $response;   
     }
 
     // Logout User
